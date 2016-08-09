@@ -4,6 +4,69 @@
   
     
     <entry>
+      <title><![CDATA[前端学习笔记系列-3.如何保持浮层水平垂直居中]]></title>
+      <url>http://www.wusijie.tk/2016/08/09/center/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>方法一：给出父元素确定的height，然后margin:0 auto;</p>
+<p>方法二：position：absolute，top:50%,left:50%,margin-top:-窗体height一半;margin-left:-窗体width一半；</p>
+<p>方法三（推荐）：使用transform的平移代替margin，无需固定窗体宽高度。（需要IE9以上才支持）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.element &#123;</div><div class="line">    width: 600px; height: 400px;</div><div class="line">    position: absolute; left: 50%; top: 50%;</div><div class="line">    transform: translate(-50%, -50%);    /* 50%为自身尺寸的一半 */</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方法四（有点奇葩）：上下左右均0位置定位；margin: auto于是，就居中了（别忘记给父类定位{position:relative;}。）</p>
+<p>方法五：**还有一种办法是父级display:table;子级display:table-cell; vertical-align:center;</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端学习笔记系列-6.CSS选择器优先级以及样式冲突]]></title>
+      <url>http://www.wusijie.tk/2016/08/09/css-selector/</url>
+      <content type="html"><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><blockquote>
+<p>样式的层级关系，选择器优先级，样式冲突，以及抽离样式模块怎么写，说出思路，有无实践经验</p>
+</blockquote>
+<p>通常我们可以将CSS的优先级由高到低分为==六组==：</p>
+<ul>
+<li>无条件优先的属性只需要在属性后面使用 !important 。它会覆盖页面内任何位置定义的元素样式。当然，IE 6不支持这个属性，于是它也成为一种hack被很多人所熟知，真正使命被人淡忘。</li>
+<li>第二高位的优先属性是在html中给元素标签加style。由于该方法会造成CSS的难以管理，所以不推荐使用。</li>
+<li>第三级优先的属性是由一个或多个id选择器来定义的。例如 #id{margin:0;} 会覆盖 .classname{margin:3px;}。</li>
+<li>第四级的属性由一个或多个 类选择器、属性选择器、伪类选择器定义。如 .classname{margin:3px;} 会覆盖 div{margin:6px;}类选择器</li>
+<li>第五级由一个或多个 类型选择器定义。如 div{margin:6px;}  覆盖  *{margin:10px;} 。</li>
+<li>最低一级的选择器是为一个通配选择器，用*{margin:10px;}这样的类型来定义。</li>
+</ul>
+<hr>
+<p>另外，可以用一句极为简单的话来描述CSS优先级问题：当一个CSS选择器拥有更多的高级别属性时，它的优先级就会比较高。如 #i100 <em>.c20 </em>.c10{} 的优先级就会高于 #i100 *.c10 div p span em{} ，这是由于前者拥有一个第三级和两个第四级的选择器而后者第三级和第四级的选择器各为一个，当然前者优先级会比较高。<br>CSS选择器是一个非常灵活的CSS属性，优雅的使用它会使你的页面代码不再臃肿，而且还可以作为hack的妙用方法之一。<br>当比较多个相同级别的CSS选择器优先级时，它们定义的位置将决定一切。下面从位置上将CSS优先级由高到低分为六级：<br>位于<head>标签里的<style>中所定义的CSS拥有最高级的优先权。<br>第二级的优先属性由位于 <style/>标签中的 @import 引入样式表所定义。<br>第三级的优先属性由<link/>标签所引入的样式表定义。<br>第四级的优先属性由<link/>标签所引入的样式表内的 @import 导入样式表定义。<br>第五级优先的样式有用户设定。<br>最低级的优先权由浏览器默认。<br>理解了这些CSS优先级问题后，也就不必苦恼于样式定于中的此类问题了。</p>
+<h3 id="选择器分类"><a href="#选择器分类" class="headerlink" title="选择器分类"></a>选择器分类</h3><p>类选择器：.className {margin:100px;}<br>属性选择器：a[href] {margin:100px;}  带有href属性的a标签<br>伪类选择器：p:hover {margin:100px;} p标签的hover事件，已经定义好的事件：hover，active，visited，link<br>提示：在 CSS 定义中，a:hover 必须被置于 a:link 和 a:visited 之后，才是有效的。<br>提示：在 CSS 定义中，a:active 必须被置于 a:hover 之后，才是有效的。<br>提示：伪类名称对大小写不敏感。</p>
+<h3 id="CSS样式冲突解决方法："><a href="#CSS样式冲突解决方法：" class="headerlink" title="CSS样式冲突解决方法："></a>CSS样式冲突解决方法：</h3><p>解决方法有很多，如果可以对html改动的话，就给你需要细化的页面元素加多一个class或者ID就行了，当然这种方法应该不是你想要的。那么接下来是不改变HTML的情况下，直接用css的方法来实现你想要的效果——</p>
+<h4 id="方法一-细化选择符"><a href="#方法一-细化选择符" class="headerlink" title="方法一 细化选择符"></a>方法一 细化选择符</h4><p>假如全局是这样来定义一个元素的样式的：.abc {background:#000}，同时这个class为abc的元素是隶属于某个元素的，比如下面这样的html代码结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;container&quot;&gt;</div><div class="line">    &lt;div class=&quot;abc&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>那么在细化css里面，只需要在.abc前面加多一个父元素的选择符就行了：<br>.container .abc {background:#fff}<br>这样.container .abc的优先级就大于了.abc，自然细化css里面的background设置也就不会被全局CSS覆盖了~~</p>
+<h4 id="方法二-提升样式的优先级"><a href="#方法二-提升样式的优先级" class="headerlink" title="方法二 提升样式的优先级"></a>方法二 提升样式的优先级</h4><p>这种方法个人不太推荐，相对而言会简单粗暴一些。同样是上面的例子，在细化CSS里面，只要在样式后面加一个!important，例如这样：<br><code>.abc {background:#fff !improtant;}</code><br>这个样式的优先级就会默认提升到顶级，全局样式就无法影响到它了。</p>
+<h4 id="方法三-改变两个样式的加载顺序"><a href="#方法三-改变两个样式的加载顺序" class="headerlink" title="方法三 改变两个样式的加载顺序"></a>方法三 改变两个样式的加载顺序</h4><p>这种方法比较简单，就是只要把细化css加载在全局css之后就行了，这样后面的样式就会自动覆盖前面的样式。不过如果你的html里面这两个样式表的加载顺序是先细化后全局的话，就要稍微调整一下代码才行。</p>
+</style></head></p>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端学习笔记系列-5.替换元素/非替换元素、块级元素、行内元素]]></title>
+      <url>http://www.wusijie.tk/2016/08/09/element/</url>
+      <content type="html"><![CDATA[<p>元素是文档结构的基础，在css里面，每个元素生成了包含内容的框（box）,大家都叫“盒子”。但是不同的元素显示方式是不同的，有占据一整行的，有水平一个挨着一个的。比如：div 与span的方式不一样。</p>
+<blockquote>
+<p>什么是替换元素与非替换元素</p>
+</blockquote>
+<h3 id="替换元素："><a href="#替换元素：" class="headerlink" title="替换元素："></a>替换元素：</h3><p>替换元素是浏览器根据其标签的元素与属性来判断显示具体的内容。<br>比如：<figure class="highlight plain"><figcaption><span>type="text"</span><a href="/>```">，这是一个文本输入框，换一个其他的时候，浏览器显示就不一样</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(X)HTML中的```&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;```都是替换元素，这些元素都没有实际的内容。</div><div class="line"></div><div class="line">### 非替换元素：</div><div class="line">(X)HTML 的大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来。</div><div class="line">比如```&lt;p&gt;wanmei.com&lt;/p&gt;</div></pre></td></tr></table></figure></p>
+<p>浏览器将把这段内容直接显示出来。<br>除了这两字，还有两种非常属性的元素，显示元素，他分为两种情况，一种是‘块及元素’ ‘block’，还有一种是“行内元素”inline，大家也叫“内联元素”。</p>
+<h3 id="块及元素"><a href="#块及元素" class="headerlink" title="块及元素"></a>块及元素</h3><p>他最明显的特征就是独自占领一行，自动充满父级元素的内容区域，绝不会让别人“侵略”（当然可以通过其他方式去改变他）。<br>常见的有：div，p..等等。<br>通过CSS设定了浮动（float属性，可向左浮动或向右浮动）以及设定显示（display）属性为“block”或“list-item”的元素都是块级元素。这个地方浮动是一个比较特殊的情况，可以详查浮动这个知识</p>
+<h3 id="行内元素："><a href="#行内元素：" class="headerlink" title="行内元素："></a>行内元素：</h3><p>上面说块及元素独自占领一行，行内元素就没这么霸道了，他可以左右都允许有元素，最常见的就是<code>&lt;a&gt;&lt;/a&gt;</code><br>通过display:’inline’设置以后都会变成行内元素。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端学习笔记系列-4.position 和 display]]></title>
+      <url>http://www.wusijie.tk/2016/08/09/position-display/</url>
+      <content type="html"><![CDATA[<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><p>position属性取值：==static(默认)、relative、absolute、fixed、inherit==。<br>postision：static；始终处于文档流给予的位置。看起来好像没有用，但它可以快速取消定位，让top，right，bottom，left的值失效。在切换的时候可以尝试这个方法。<br>除了static值，在其他三个值的设置下，z-index才会起作用。（确切地说z-index只在定位元素上有效）<br>position：relative和absolute都可以用于定位，区别在于前者的div还属于正常的文档流，后者已经是脱离了正常文档流，不占据空间位置，不会将父类撑开。定位原点relative是相对于它在正常流中的默认位置偏移，它原本占据的空间任然保留；absolute相对于第一个position属性值不为static的父类。所以设置了position：absolute，其父类的该属性值要注意，而且overflow：hidden也不能乱设置，因为不属于正常文档流，不会占据父类的高度，也就不会有滚动条。<br>fixed旧版本IE不支持，却是很有用，定位原点相对于浏览器窗口，而且不能变。常用于header，footer，或者一些固定的悬浮div，随滚动条滚动又稳定又流畅，比JS好多了。fixed可以有很多创造性的布局和作用，兼容性是问题。<br>position：inherit。规定从父类继承position属性的值，所以这个属性也是有继承性的，@一丝yisi 前辈注意下。但是任何版本的IE都不支持该属性值。</p>
+<h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><p>float属性取值：==none(默认)、left、right、inherit==。<br>float：left(或right)，向左（或右）浮动，直到它的边缘碰到包含框或另一个浮动框为止。且脱离普通的文档流，会被正常文档流内的块框忽略。不占据空间，无法将父类元素撑开。<br>任何元素都可以浮动，浮动元素会生成一个块级框，不论它本身是何种元素。因此，没有必要为浮动元素设置display：block。<br>如果浮动非替换元素，则要指定一个明确的width，否则它们会尽可能的窄。（什么叫替换元素？根据元素本身的特点定义的， (X)HTML中的img、input、textarea、select、object都是替换元素，这些元素都没有实际的内容。 (X)HTML 的大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来。）<br>    不想脱离出去讲清理浮动- -||，还是少说些。。。<br>最直接的clear属性，该属性表示的是框的哪边不应该挨着浮动框。这个属性是对元素本身而言，通过自动为该元素增加上外边距实现的（css1和css2），或者在上外边距之上增加清除空间，而外边距本身不改变的方式（css2.1）。clear的缺陷是可能要添加额外无意义的标签。<br>通过父类的浮动也可以清理子类浮动，将空间撑开。这有点像负负得正。但原理应该是浮动的元素也是按照文档流的方式布局，只不过它们是另外一个独立的文档流，不同于普通文档流，暂时叫它浮动文档流？<br>hasLayout和BFC都可以清理浮动。overflow：hidden；zoom:1；</p>
+<h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>display属性取值：==none、inline、inline-block、block、table相关属性值、inherit==。<br>display属性规定元素应该生成的框的类型。文档内任何元素都是框，块框或行内框。<br>display：none和visiability：hidden都可以隐藏div，区别有点像absolute和relative，前者不占据文档的空间，后者还是占据文档的位置。<br>display：inline和block，又叫行内元素和块级元素。表现出来的区别就是block独占一行，在浏览器中通常垂直布局，可以用margin来控制块级元素之间的间距（存在margin合并的问题，就是@寒冬winter 磨叽的margin collapse么- -||，插一句， 只有普通文档流中块框的垂直外边距才会发生外边距合并。行内框、浮动框或绝对定位之间的外边距不会合并。）；而inline以水平方式布局，垂直方向的margin和padding都是无效的，大小跟内容一样，且无法设置宽高。inline就像塑料袋，内容怎么样，就长得怎么样；block就像盒子，有固定的宽和高。<br>inline-block就介于两者之间。<br>table相关的属性值可以用来垂直居中，效果一般。</p>
+<h3 id="定位机制"><a href="#定位机制" class="headerlink" title="定位机制"></a>定位机制</h3><p>上面三个属性都属于CSS定位属性。CSS三种基本的定位机制：==普通流、浮动、绝对定位==。<br><strong>随便扯一些居中布局</strong>：<br>宽高固定可以利用负margin。.center{top：50%;margin-top:-height/2;left:50%;margin-left:-width/2;}话说现在觉得这个方法略微扯淡，要是宽高都知道，直接计算出x的值，设置个margin：x;就好了，多这么多代码，没劲。所以别尽看网上的代码，能简则简，本来就没有模式。<br>宽高不固定的元素。.center{display：inline-block},父类设置{text-align:center}<br>垂直居中table-cell不说了<br>{line-height：height;vertical-align:middle;}<br>{position:absolute;top:0;bottom:0;margin:auto}别忘记给父类定位{position:relative;}</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[前端学习笔记系列-2.JavaScript中call()与apply()区别]]></title>
       <url>http://www.wusijie.tk/2016/08/08/applyandcall/</url>
       <content type="html"><![CDATA[<blockquote>
