@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title><![CDATA[前端学习笔记系列-3.如何保持浮层水平垂直居中]]></title>
+      <url>http://www.wusijie.tk/2016/08/09/center/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>方法一：给出父元素确定的height，然后margin:0 auto;</p>
+<p>方法二：position：absolute，top:50%,left:50%,margin-top:-窗体height一半;margin-left:-窗体width一半；</p>
+<p>方法三（推荐）：使用transform的平移代替margin，无需固定窗体宽高度。（需要IE9以上才支持）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.element &#123;</div><div class="line">    width: 600px; height: 400px;</div><div class="line">    position: absolute; left: 50%; top: 50%;</div><div class="line">    transform: translate(-50%, -50%);    /* 50%为自身尺寸的一半 */</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方法四（有点奇葩）：上下左右均0位置定位；margin: auto于是，就居中了（别忘记给父类定位{position:relative;}。）</p>
+<p>方法五：**还有一种办法是父级display:table;子级display:table-cell; vertical-align:center;</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[前端学习笔记系列-6.CSS选择器优先级以及样式冲突]]></title>
       <url>http://www.wusijie.tk/2016/08/09/css-selector/</url>
       <content type="html"><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><blockquote>
@@ -50,19 +63,6 @@
 <h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><p>float属性取值：==none(默认)、left、right、inherit==。<br>float：left(或right)，向左（或右）浮动，直到它的边缘碰到包含框或另一个浮动框为止。且脱离普通的文档流，会被正常文档流内的块框忽略。不占据空间，无法将父类元素撑开。<br>任何元素都可以浮动，浮动元素会生成一个块级框，不论它本身是何种元素。因此，没有必要为浮动元素设置display：block。<br>如果浮动非替换元素，则要指定一个明确的width，否则它们会尽可能的窄。（什么叫替换元素？根据元素本身的特点定义的， (X)HTML中的img、input、textarea、select、object都是替换元素，这些元素都没有实际的内容。 (X)HTML 的大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来。）<br>    不想脱离出去讲清理浮动- -||，还是少说些。。。<br>最直接的clear属性，该属性表示的是框的哪边不应该挨着浮动框。这个属性是对元素本身而言，通过自动为该元素增加上外边距实现的（css1和css2），或者在上外边距之上增加清除空间，而外边距本身不改变的方式（css2.1）。clear的缺陷是可能要添加额外无意义的标签。<br>通过父类的浮动也可以清理子类浮动，将空间撑开。这有点像负负得正。但原理应该是浮动的元素也是按照文档流的方式布局，只不过它们是另外一个独立的文档流，不同于普通文档流，暂时叫它浮动文档流？<br>hasLayout和BFC都可以清理浮动。overflow：hidden；zoom:1；</p>
 <h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>display属性取值：==none、inline、inline-block、block、table相关属性值、inherit==。<br>display属性规定元素应该生成的框的类型。文档内任何元素都是框，块框或行内框。<br>display：none和visiability：hidden都可以隐藏div，区别有点像absolute和relative，前者不占据文档的空间，后者还是占据文档的位置。<br>display：inline和block，又叫行内元素和块级元素。表现出来的区别就是block独占一行，在浏览器中通常垂直布局，可以用margin来控制块级元素之间的间距（存在margin合并的问题，就是@寒冬winter 磨叽的margin collapse么- -||，插一句， 只有普通文档流中块框的垂直外边距才会发生外边距合并。行内框、浮动框或绝对定位之间的外边距不会合并。）；而inline以水平方式布局，垂直方向的margin和padding都是无效的，大小跟内容一样，且无法设置宽高。inline就像塑料袋，内容怎么样，就长得怎么样；block就像盒子，有固定的宽和高。<br>inline-block就介于两者之间。<br>table相关的属性值可以用来垂直居中，效果一般。</p>
 <h3 id="定位机制"><a href="#定位机制" class="headerlink" title="定位机制"></a>定位机制</h3><p>上面三个属性都属于CSS定位属性。CSS三种基本的定位机制：==普通流、浮动、绝对定位==。<br><strong>随便扯一些居中布局</strong>：<br>宽高固定可以利用负margin。.center{top：50%;margin-top:-height/2;left:50%;margin-left:-width/2;}话说现在觉得这个方法略微扯淡，要是宽高都知道，直接计算出x的值，设置个margin：x;就好了，多这么多代码，没劲。所以别尽看网上的代码，能简则简，本来就没有模式。<br>宽高不固定的元素。.center{display：inline-block},父类设置{text-align:center}<br>垂直居中table-cell不说了<br>{line-height：height;vertical-align:middle;}<br>{position:absolute;top:0;bottom:0;margin:auto}别忘记给父类定位{position:relative;}</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[前端学习笔记系列-3.如何保持浮层水平垂直居中]]></title>
-      <url>http://www.wusijie.tk/2016/08/09/center/</url>
-      <content type="html"><![CDATA[<blockquote>
-<p>方法一：给出父元素确定的height，然后margin:0 auto;</p>
-<p>方法二：position：absolute，top:50%,left:50%,margin-top:-窗体height一半;margin-left:-窗体width一半；</p>
-<p>方法三（推荐）：使用transform的平移代替margin，无需固定窗体宽高度。（需要IE9以上才支持）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.element &#123;</div><div class="line">    width: 600px; height: 400px;</div><div class="line">    position: absolute; left: 50%; top: 50%;</div><div class="line">    transform: translate(-50%, -50%);    /* 50%为自身尺寸的一半 */</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>方法四（有点奇葩）：上下左右均0位置定位；margin: auto于是，就居中了（别忘记给父类定位{position:relative;}。）</p>
-<p>方法五：**还有一种办法是父级display:table;子级display:table-cell; vertical-align:center;</p>
-</blockquote>
 ]]></content>
     </entry>
     
