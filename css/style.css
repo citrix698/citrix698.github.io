@@ -347,12 +347,12 @@ article .entry {
 }
 article .article-title h1 {
   font-family: "微软雅黑", "sans-serif", "Helvetica Neue";
-  font-size: 2em;
+  font-size: 18px;
   font-weight: bold;
   line-height: 1.4;
   margin-top: 0;
   margin-bottom: 10px;
-  color: #333;
+  color: #000;
 }
 article a:not(.chip) {
   color: #1976d2;
@@ -435,18 +435,18 @@ article .card-content .entry h6 {
 }
 article .card-content .entry h1 {
   font-size: 1.6em;
-  color: #333;
+  color: #000;
 }
 article .card-content .entry h2 {
   font-size: 1.4em;
-  color: #333;
+  color: #000;
 }
 article .card-content .entry h3,
 article .card-content .entry h4,
 article .card-content .entry h5,
 article .card-content .entry h6 {
   font-size: 1.2em;
-  color: #333;
+  color: #000;
 }
 article .card-content .entry.nstyle {
   -webkit-border-radius: 0;

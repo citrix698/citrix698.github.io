@@ -17,6 +17,20 @@
     </entry>
     
     <entry>
+      <title><![CDATA[前端学习笔记系列-5.替换元素/非替换元素、块级元素、行内元素]]></title>
+      <url>http://www.wusijie.tk/2016/08/09/element/</url>
+      <content type="html"><![CDATA[<p>元素是文档结构的基础，在css里面，每个元素生成了包含内容的框（box）,大家都叫“盒子”。但是不同的元素显示方式是不同的，有占据一整行的，有水平一个挨着一个的。比如：div 与span的方式不一样。</p>
+<blockquote>
+<p>什么是替换元素与非替换元素</p>
+</blockquote>
+<h3 id="替换元素："><a href="#替换元素：" class="headerlink" title="替换元素："></a>替换元素：</h3><p>替换元素是浏览器根据其标签的元素与属性来判断显示具体的内容。<br>比如：<figure class="highlight plain"><figcaption><span>type="text"</span><a href="/>```">，这是一个文本输入框，换一个其他的时候，浏览器显示就不一样</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(X)HTML中的```&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;```都是替换元素，这些元素都没有实际的内容。</div><div class="line"></div><div class="line">### 非替换元素：</div><div class="line">(X)HTML 的大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来。</div><div class="line">比如```&lt;p&gt;wanmei.com&lt;/p&gt;</div></pre></td></tr></table></figure></p>
+<p>浏览器将把这段内容直接显示出来。<br>除了这两字，还有两种非常属性的元素，显示元素，他分为两种情况，一种是‘块及元素’ ‘block’，还有一种是“行内元素”inline，大家也叫“内联元素”。</p>
+<h3 id="块及元素"><a href="#块及元素" class="headerlink" title="块及元素"></a>块及元素</h3><p>他最明显的特征就是独自占领一行，自动充满父级元素的内容区域，绝不会让别人“侵略”（当然可以通过其他方式去改变他）。<br>常见的有：div，p..等等。<br>通过CSS设定了浮动（float属性，可向左浮动或向右浮动）以及设定显示（display）属性为“block”或“list-item”的元素都是块级元素。这个地方浮动是一个比较特殊的情况，可以详查浮动这个知识</p>
+<h3 id="行内元素："><a href="#行内元素：" class="headerlink" title="行内元素："></a>行内元素：</h3><p>上面说块及元素独自占领一行，行内元素就没这么霸道了，他可以左右都允许有元素，最常见的就是<code>&lt;a&gt;&lt;/a&gt;</code><br>通过display:’inline’设置以后都会变成行内元素。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[前端学习笔记系列-6.CSS选择器优先级以及样式冲突]]></title>
       <url>http://www.wusijie.tk/2016/08/09/css-selector/</url>
       <content type="html"><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><blockquote>
@@ -40,20 +54,6 @@
 <h4 id="方法二-提升样式的优先级"><a href="#方法二-提升样式的优先级" class="headerlink" title="方法二 提升样式的优先级"></a>方法二 提升样式的优先级</h4><p>这种方法个人不太推荐，相对而言会简单粗暴一些。同样是上面的例子，在细化CSS里面，只要在样式后面加一个!important，例如这样：<br><code>.abc {background:#fff !improtant;}</code><br>这个样式的优先级就会默认提升到顶级，全局样式就无法影响到它了。</p>
 <h4 id="方法三-改变两个样式的加载顺序"><a href="#方法三-改变两个样式的加载顺序" class="headerlink" title="方法三 改变两个样式的加载顺序"></a>方法三 改变两个样式的加载顺序</h4><p>这种方法比较简单，就是只要把细化css加载在全局css之后就行了，这样后面的样式就会自动覆盖前面的样式。不过如果你的html里面这两个样式表的加载顺序是先细化后全局的话，就要稍微调整一下代码才行。</p>
 </style></head></p>]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[前端学习笔记系列-5.替换元素/非替换元素、块级元素、行内元素]]></title>
-      <url>http://www.wusijie.tk/2016/08/09/element/</url>
-      <content type="html"><![CDATA[<p>元素是文档结构的基础，在css里面，每个元素生成了包含内容的框（box）,大家都叫“盒子”。但是不同的元素显示方式是不同的，有占据一整行的，有水平一个挨着一个的。比如：div 与span的方式不一样。</p>
-<blockquote>
-<p>什么是替换元素与非替换元素</p>
-</blockquote>
-<h3 id="替换元素："><a href="#替换元素：" class="headerlink" title="替换元素："></a>替换元素：</h3><p>替换元素是浏览器根据其标签的元素与属性来判断显示具体的内容。<br>比如：<figure class="highlight plain"><figcaption><span>type="text"</span><a href="/>```">，这是一个文本输入框，换一个其他的时候，浏览器显示就不一样</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(X)HTML中的```&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;```都是替换元素，这些元素都没有实际的内容。</div><div class="line"></div><div class="line">### 非替换元素：</div><div class="line">(X)HTML 的大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来。</div><div class="line">比如```&lt;p&gt;wanmei.com&lt;/p&gt;</div></pre></td></tr></table></figure></p>
-<p>浏览器将把这段内容直接显示出来。<br>除了这两字，还有两种非常属性的元素，显示元素，他分为两种情况，一种是‘块及元素’ ‘block’，还有一种是“行内元素”inline，大家也叫“内联元素”。</p>
-<h3 id="块及元素"><a href="#块及元素" class="headerlink" title="块及元素"></a>块及元素</h3><p>他最明显的特征就是独自占领一行，自动充满父级元素的内容区域，绝不会让别人“侵略”（当然可以通过其他方式去改变他）。<br>常见的有：div，p..等等。<br>通过CSS设定了浮动（float属性，可向左浮动或向右浮动）以及设定显示（display）属性为“block”或“list-item”的元素都是块级元素。这个地方浮动是一个比较特殊的情况，可以详查浮动这个知识</p>
-<h3 id="行内元素："><a href="#行内元素：" class="headerlink" title="行内元素："></a>行内元素：</h3><p>上面说块及元素独自占领一行，行内元素就没这么霸道了，他可以左右都允许有元素，最常见的就是<code>&lt;a&gt;&lt;/a&gt;</code><br>通过display:’inline’设置以后都会变成行内元素。</p>
-]]></content>
     </entry>
     
     <entry>
