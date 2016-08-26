@@ -267,6 +267,9 @@
                 <blockquote>
 <p>方法一：给出父元素确定的height，然后margin:0 auto;</p>
 <p>方法二：position：absolute，top:50%,left:50%,margin-top:-窗体height一半;margin-left:-窗体width一半；</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
 <p>方法三（推荐）：使用transform的平移代替margin，无需固定窗体宽高度。（需要IE9以上才支持）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.element &#123;</div><div class="line">    width: 600px; height: 400px;</div><div class="line">    position: absolute; left: 50%; top: 50%;</div><div class="line">    transform: translate(-50%, -50%);    /* 50%为自身尺寸的一半 */</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>方法四（有点奇葩）：上下左右均0位置定位；margin: auto于是，就居中了（别忘记给父类定位{position:relative;}。）</p>
 <p>方法五：**还有一种办法是父级display:table;子级display:table-cell; vertical-align:center;</p>

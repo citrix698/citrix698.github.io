@@ -347,7 +347,7 @@ article .entry {
 }
 article .article-title h1 {
   font-family: "微软雅黑", "sans-serif", "Helvetica Neue";
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   line-height: 1.4;
   margin-top: 0;
@@ -355,7 +355,7 @@ article .article-title h1 {
   color: #000;
 }
 article a:not(.chip) {
-  color: #1976d2;
+  color: #000;
 }
 article a:not(.chip):hover {
   color: #42a5f5;
